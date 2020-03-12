@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>2l Maktaba - Log In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="../static/assets/css/styles.min.css">
+</head>
+
+<body>
+<!-- Start: Navigation Clean -->
+<div>
+    <nav class="navbar navbar-light navbar-expand-md sticky-top text-monospace text-center shadow-sm navigation-clean"
+         style="height: 57px;font-size: 42px;">
+        <div class="container-fluid"><a class="navbar-brand text-monospace text-center flex-fill" href="#" style="color: rgba(41,128,239,0.9);">Our
+            Library</a></div>
+    </nav>
+</div>
+<!-- End: Navigation Clean -->
+<!-- Start: Login Form Dark -->
+<div class="login-dark" style="height: 707px;">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <h2 class="sr-only">Login Form</h2>
+        <div class="illustration"><i class="icon ion-social-buffer-outline"></i></div>
+        <div class="form-group">
+            {% if form.username.errors %}
+                {{ form.username(class="form-control is-invalid", type="text", required="", placeholder="Name", autofocus="") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.username(class="form-control" , type="text", required="", placeholder="Name", autofocus="") }}
+            {% endif %}
+
+        </div>
+        <div class="form-group">
+            {% if form.password.errors %}
+                {{ form.password(class="form-control is-invalid", type="password", placeholder="Password") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(class="form-control", type="password", placeholder="Password") }}
+            {% endif %}
+
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-primary btn-block") }}
+        </div>
+    <a style="align-content: center;" class="already" href="{{ url_for('Register') }}">Need an
+        account? Register here.</a>
+    </form>
+</div>
+<!-- End: Login Form Dark -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+<script src="../static/assets/js/script.min.js"></script>
+</body>
+
+</html>

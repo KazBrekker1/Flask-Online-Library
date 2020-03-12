@@ -1,0 +1,74 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<div class="register-photo" style="margin: auto; width: 50%;  background-color: rgba(241,247,252,0);">
+    <div class="form-container">
+        <form method="POST" style="margin-top: 5rem; background-color: rgb(23,33,44);height: 50%;padding: 69px;">
+            {{ form.hidden_tag() }}
+            <h2 class="text-center" style="color: rgb(38,116,214);"><strong>Add a Book</strong></h2>
+            <div class="form-group">
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control is-invalid", placeholder="Book Name") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control", placeholder="Book Name") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {% if form.link.errors %}
+                    {{ form.link(class="form-control is-invalid", placeholder="Book Link", inputmode="url") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.link.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.link(class="form-control", placeholder="Book Link", inputmode="url") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {% if form.writer.errors %}
+                    {{ form.writer(class="form-control is-invalid", placeholder="Book Writer") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.writer.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.writer(class="form-control", placeholder="Book Writer") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {% if form.pages.errors %}
+                    {{ form.pages(class="form-control is-invalid", placeholder="Number of Pages", type='number') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.pages.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.pages(class="form-control", placeholder="Number of Pages", type='number') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <div class="form-check text-center text-primary">
+{#                    <label class="form-check-label">#}
+{#                        <input type="checkbox" class="form-check-input" name="animeCB" />Finished#}
+{#                    </label>#}
+                    {{ form.finished(class="form-check-input") }}
+                    {{ form.finished.label(class="form-check-label") }}
+                </div>
+            </div>
+            <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-block", style="background-color: rgb(65,38,143);") }}
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

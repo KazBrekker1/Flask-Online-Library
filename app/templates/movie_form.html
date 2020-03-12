@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <div class="register-photo" style="margin: auto; width: 50%; background-color: rgba(241,247,252,0);">
+        <div class="form-container">
+            <form method="POST" style="margin-top: 5rem; background-color: rgb(23,33,44);height: 50%;padding: 69px;">
+                {{ form.hidden_tag() }}
+                <h2 class="text-center" style="color: rgb(38,116,214);"><strong>Add a Movie</strong></h2>
+                <div class="form-group">
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control is-invalid", placeholder="Movie Name") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control", placeholder="Movie Name") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {% if form.link.errors %}
+                        {{ form.link(class="form-control is-invalid", placeholder="Movie Link", inputmode="url") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.link.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.link(class="form-control", placeholder="Movie Link", inputmode="url") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <div class="form-check text-center text-primary">
+                        {{ form.watched(class="form-check-input") }}
+                        {{ form.watched.label(class="form-check-label") }}
+                    </div>
+                    <div class="form-check text-center text-primary">
+                        {{ form.anime(class="form-check-input") }}
+                        {{ form.anime.label(class="form-check-label") }}
+                    </div>
+                    <div class="form-check text-center text-primary">
+                        {{ form.dubbed(class="form-check-input") }}
+                        {{ form.dubbed.label(class="form-check-label") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary btn-block", style="background-color: rgb(65,38,143);") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

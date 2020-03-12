@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>2l Maktaba</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="../static/assets/css/styles.min.css">
+</head>
+<body background="../static/assets/img/star-sky.jpg">
+<nav class="navbar navbar-light navbar-expand-md sticky-top text-monospace text-center shadow-sm navigation-clean"
+     style="height: 57px;font-size: 42px;">
+    <div class="container-fluid">
+        <a class="navbar-brand text-monospace text-center flex-fill" href="{{ url_for('home') }}" style="color: rgba(41,128,239,0.9);">Our Library:
+            {{ current_user.username}}</a>
+        <a class="btn btn-danger" role="button" style="margin: -5px;" href="{{ url_for('Logout') }}">Logout</a>
+    </div>
+</nav>
+{% block content %}
+<div>
+    <div class="card-group">
+        <div class="card" style="padding: 9px;background-color: rgba(255,255,255,0);">
+            <h1 class="text-monospace text-center border rounded" style="height: 75px;background-color: #17a2b8;padding: 12px;font-size: 33px;">Movies</h1>
+            {% for movie in movies %}
+                <div class="card-body text-center border rounded shadow" data-aos="zoom-out-up" data-aos-duration="300" data-aos-once="true"
+                 style="background-color: rgba(41,106,115,0.87); margin:8px; color: rgb(221,238,255);">
+                <h4 class="card-title">{{ movie.title }}</h4>
+                <div class="form-check" style="margin: 10px;">
+                    {% if movie.watched %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Watched</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Watched</label>
+                    {% endif %}
+                </div>
+                <div class="form-check" style="margin: 10px;">
+                    {% if movie.anime %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Anime</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Anime</label>
+                    {% endif %}
+                </div>
+                <div class="form-check" style="margin: 10px;">
+                    {% if movie.dubbed %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Dubbed</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Dubbed</label>
+                    {% endif %}
+                </div>
+                <a class="btn btn-info btn-block text-monospace shadow" role="button" href="{{ movie.link }}" target="_blank">Watching Link</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal1">Delete</button>
+            </div>
+                <div class="modal fade" id="deleteModal1" tabindex="-1" role="dialog" aria-labelledby="deleteModal1Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModal1Label">Delete {{movie.title}}?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="{{ url_for('delMovie', m_id=movie.id) }}" method="POST">
+                              <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        <a class="btn btn-success text-monospace text-center align-self-center" role="button" href="{{ url_for('addMovie') }}" style="width: 250px;">Add Movie</a>
+        </div>
+
+
+        <div class="card" style="padding: 9px;background-color: rgba(255,255,255,0);">
+            <h1 class="text-monospace text-center border rounded" style="height: 75px;background-color: #17a2b8;padding: 12px;font-size: 33px;">Series</h1>
+            {% for show in series %}
+                <div class="card-body text-center border rounded shadow" data-aos="zoom-out-up" data-aos-duration="300" data-aos-once="true" style="background-color: rgba(41,106,115,0.87);margin: 8px;color: rgb(221,238,255);">
+                <h4 class="card-title">{{show.title}}</h4>
+                <div class="form-check" style="margin: 10px;">
+                    {% if show.watched %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Watched</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-info" for="formCheck-8">Watching</label>
+                    {% endif %}
+                </div>
+                <div class="form-check" style="margin: 10px;">
+                    {% if show.anime %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Anime</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Anime</label>
+                    {% endif %}
+                </div>
+                <div class="form-check" style="margin: 10px;">
+                    {% if show.dubbed %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Dubbed</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Dubbed</label>
+                    {% endif %}
+                </div>
+                <a class="btn btn-info btn-block text-monospace shadow" role="button" href="{{ show.link }}" target="_blank">Watching Link</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal2">Delete</button>
+            </div>
+                <div class="modal fade" id="deleteModal2" tabindex="-1" role="dialog" aria-labelledby="deleteModal2Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModal2Label">Delete {{show.title}}?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="{{ url_for('delSeries', s_id=show.id) }}" method="POST">
+                              <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        <a class="btn btn-success text-monospace text-center align-self-center" role="button" href="{{ url_for('addSeries') }}" style="width: 250px;
+">Add Series</a>
+        </div>
+
+
+        <div class="card" style="padding: 9px;background-color: rgba(255,255,255,0);">
+            <h1 class="text-monospace text-center border rounded" style="height: 75px;background-color: #17a2b8;padding: 12px;font-size: 33px;">Books</h1>
+            {% for book in books %}
+                <div class="card-body text-center border rounded shadow" data-aos="zoom-out-up" data-aos-duration="300" data-aos-once="true" style="background-color: rgba(41,106,115,0.87);margin: 8px;color: rgb(221,238,255);">
+                <h4 class="card-title">{{book.title}}</h4><label>{{book.writer}}</label>
+                <h6>{{book.pages}}</h6>
+                <div class="form-check" style="margin: 10px;">
+                    {% if book.finished %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" checked disabled>
+                        <label class="form-check-label text-success" for="formCheck-8">Finished</label>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="formCheck-8" disabled>
+                        <label class="form-check-label text-danger" for="formCheck-8">Finished</label>
+                    {% endif %}
+                </div>
+                <a class="btn btn-info btn-block text-monospace shadow" role="button" href="{{ book.link }}" target="_blank">Download Link</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal3">Delete</button>
+            </div>
+                <div class="modal fade" id="deleteModal3" tabindex="-1" role="dialog" aria-labelledby="deleteModal3Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModal3Label">Delete {{book.title}}?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="{{ url_for('delBook', b_id=book.id) }}" method="POST">
+                              <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        <a class="btn btn-success text-monospace text-center align-self-center" role="button" href="{{ url_for('addBook') }}" style="width: 250px;
+">Add a Book</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+<script src="../static/assets/js/script.min.js"></script>
+</body>
+
+</html>
